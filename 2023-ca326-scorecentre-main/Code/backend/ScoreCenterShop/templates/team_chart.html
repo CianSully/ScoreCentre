@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+<meta charset="UTF-8">
+<!-- <title>Fixtures</title> -->
+
+{% block content %}
+<meta charset="UTF-8">
+<!-- <title>Fixtures</title> -->
+
+<main>
+    <head>
+        <title style="width:50%">Teams Wins</title>
+    </head>
+    {% if error_message %}
+    <script>
+        alert("{{ error_message }}")
+    </script>
+    {% endif %}
+    <body style= "background-color: rgb(93, 92, 92);">
+        <form id="team-form" method="POST">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="season_id">Season:</label>
+                <!-- Place to put in the season id -->
+                <input type="text" id="season_id" name="season_id" placeholder="YYYY-YYYY" pattern="\d{4}-\d{4}">
+            </div>
+
+            <div class="form-group">
+                <label for="team_chart_name_1">Team 1:</label>
+                <!-- Place to put in team names -->
+                <input class="textbox-style" type="text" id="team_chart_name_1" name="team_chart_name_1" placeholder="Golden State Warriors">
+            </div>
+            <div id="team-form-container"></div>
+            <!-- Buttons to filter and add more teams -->
+            <button class="my-button" type="submit" id="filter-button">Display</button>
+            <button class="my-button" type="button" id="add-team-button">Add Team</button>
+    
+        </form>
+
+        <h1>Teams Wins</h1>
+        <img src="data:image/png;base64,{{ chart_image }}" alt="My Chart">
+    </body>
+
+    <script>
+        // Select the form container and add button from the HTML
+        const formContainer = document.querySelector("#team-form-container");
+        const addButton = document.querySelector("#add-team-button");
+        let teamCount = 1;
+        
+        // Add an event listener to the add button that executes a function when clicked
+        addButton.addEventListener("click", () => {
+
+            // Create a new input element and add it to the form container
+            const inputName = `team_chart_name_${teamCount + 1}`;
+            const label = document.createElement("label");
+            label.setAttribute("for", inputName);
+            
+            // Set the label text to Team 1, Team 2, etc.
+            label.textContent = `Team ${teamCount + 1}: `;
+            
+            // Create the input element and set its attributes
+            const input = document.createElement("input");
+            input.setAttribute("type", "text");
+            input.setAttribute("id", inputName);
+            input.setAttribute("name", inputName);
+            input.classList.add("textbox-style");
+
+            // Create a new div element and add the label and input to it
+            const div = document.createElement("div");
+            div.appendChild(label);
+            div.appendChild(input);
+            formContainer.appendChild(div);
+            
+            // Increase the team count
+            teamCount++; 
+        });
+
+        
+
+
+    
+    </script>
+</main>
+
+{% endblock %}
+
+

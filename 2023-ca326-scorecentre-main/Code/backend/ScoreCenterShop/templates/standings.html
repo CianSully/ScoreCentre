@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+<meta charset="UTF-8">
+<!-- <title>Results</title> -->
+
+{% block content %}
+
+
+<body>
+     <h1> Standings </h1>
+
+<!-- Table to show the standings -->
+<table class="table table-success table-striped" style="width:100%">
+    <thead>
+      <tr>
+        <th>Position</th>
+        <th>Team</th>
+        <th>Conference</th>
+        <th>W</th>
+        <th>L</th>
+        <th>Played</th>
+        <th>W %</th>
+       
+      </tr>
+    </thead>
+    <tbody>
+      <div class="h2-standings">
+       <h2>Western Conference</h2>
+      </div>
+
+      <!-- Nested for loops as the group.name was in a dictionary inside a list -->
+	  {% for outer_list in standings %}
+	  {% for inner_dict in outer_list %}
+    <!-- Only getting the standings of the western conference -->
+	  {% if inner_dict.group.name == "Western Conference" %}
+	   
+    <!-- Pulling the data from the API and displaying it in the table -->
+		  <tr>
+			<td>{{ inner_dict.position }}</td>
+			<td><img class="img" src="{{ inner_dict.team.logo }}" alt="Image" width="40" height="40">
+        {{ inner_dict.team.name }} </td>
+			<td>{{ inner_dict.group.name }}</td>
+			<td>{{inner_dict.games.win.total}}</td>
+			<td>{{inner_dict.games.lose.total}}</td>
+			<td>{{ inner_dict.games.played }}</td>
+			<td>{{ inner_dict.games.win.percentage }}</td>
+			  
+			  
+
+        
+        </tr>
+      {% endif %}
+      {% endfor %}
+	  {% endfor %}
+	  
+
+	  
+	  
+    </tbody>
+  </table>
+
+
+  <table class="table table-success table-striped" style="width:100%">
+    <thead>
+      <tr>
+        <th>Position</th>
+        <th>Team</th>
+        <th>Conference</th>
+        <th>W</th>
+        <th>L</th>
+        <th>Played</th>
+        <th>W %</th>
+       
+      </tr>
+    </thead>
+    <tbody>
+      
+       <h2 >Eastern Conference</h2>
+	  {% for outer_list in standings %}
+	  {% for inner_dict in outer_list %}
+    <!-- Only getting the standings of the eastern conference -->
+	  {% if inner_dict.group.name == "Eastern Conference" %}
+	   
+		  <tr>
+			<td>{{ inner_dict.position }}</td>
+			<td><img class="img" src="{{ inner_dict.team.logo }}" alt="Image" width="35" height="35">
+      {{ inner_dict.team.name }} </td>
+      <td>{{ inner_dict.group.name }}</td>
+			<td>{{inner_dict.games.win.total}}</td>
+			<td>{{inner_dict.games.lose.total}}</td>
+			<td>{{ inner_dict.games.played }}</td>
+			<td>{{ inner_dict.games.win.percentage }}</td>
+			  
+			  
+
+        
+        </tr>
+      {% endif %}
+      {% endfor %}
+	  {% endfor %}
+	  
+
+	  
+	  
+    </tbody>
+  </table>
+</body>
+{% endblock %}

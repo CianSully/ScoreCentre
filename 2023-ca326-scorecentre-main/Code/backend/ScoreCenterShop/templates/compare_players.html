@@ -1,0 +1,208 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+<body style="background-color: rgb(93, 92, 92)">
+<main>
+
+    <!-- Display error message if there is one -->
+    {% if error_message %}
+    <script>
+      alert('{{ error_message }}');
+    </script>
+    {% endif %}
+
+    <h1 >Compare Players Season 2022-2023</h1>
+
+    <!-- Form for a user to choose players -->
+    <form id="player-form" method="POST" class="form-inline mb-3">
+        {% csrf_token %}
+     
+      <div class="form-group mr-3">
+          <label for="player_chart_name_1">Player 1:</label>
+          <input type="text" class="textbox-style" id="player_chart_name_1" name="player_chart_name_1" placeholder="Lebron James">
+      </div>
+
+  
+      <div id="team-form-container"></div>
+        <button type="submit" class="my-button">Filter</button>
+        <button type="button" id="add-team-button" class="my-button">Add Player</button>
+    </form>
+
+    <!-- Table to display player stats -->
+  {% if player_stats %}
+    <table class="table table-success table-striped table-compare" style="width:100%">
+        <thead>
+            <tr>
+                <th>Player Name</th>
+                <th class="data-att" data-attribute="games_played">Games Played</th>
+                <th class="data-att" data-attribute="pts">Points</th>
+                <th class="data-att" data-attribute="minutes">Minutes</th>
+                <th class="data-att" data-attribute="fgm">FGM</th>
+                <th class="data-att" data-attribute="fga">FGA</th>
+                <th class="data-att" data-attribute="fg3m">FG3M</th>
+                <th class="data-att" data-attribute="fg3a">FG3A</th>
+                <th class="data-att" data-attribute="ftm">FTM</th>
+                <th class="data-att" data-attribute="fta">FTA</th>
+                <th class="data-att" data-attribute="reb">REB</th>
+                <th class="data-att" data-attribute="ast">AST</th>
+                <th class="data-att" data-attribute="stl">STL</th>
+                <th class="data-att" data-attribute="blk">BLK</th>
+                <th class="data-att" data-attribute="turnover">Turnover</th>
+            </tr>
+        </thead>
+        <tbody>
+
+          <!-- Gets the players data and puts it into the table--> 
+          {% for player_data in player_stats %}
+                <tr>
+                    <td>{{ player_data.name }}</td>
+                    <td>{{ player_data.games_played }}</td>
+                    <td>{{ player_data.pts }}</td>
+                    <td>{{ player_data.min }}</td>
+                    <td>{{ player_data.fgm }}</td>
+                    <td>{{ player_data.fga }}</td>
+                    <td>{{ player_data.fg3m }}</td>
+                    <td>{{ player_data.fg3a }}</td>
+                    <td>{{ player_data.ftm }}</td>
+                    <td>{{ player_data.fta }}</td>
+                    <td>{{ player_data.reb }}</td>
+                    <td>{{ player_data.ast }}</td>
+                    <td>{{ player_data.stl }}</td>
+                    <td>{{ player_data.blk }}</td>
+                    <td>{{ player_data.turnover }}</td>
+                  </tr>
+              {% endfor %}
+          {% endif %}
+      </tbody>
+  </table>
+
+
+
+
+<script>
+  // Get the form container and add player button 
+  const formContainer = document.querySelector("#team-form-container");
+  const addButton = document.querySelector("#add-team-button");
+
+  // Initialize team count to 1
+  let teamCount = 1;
+
+  // Add a new player box when the add player button is clicked
+  addButton.addEventListener("click", () => {
+
+    // Generate a unique input name for each new player box
+    const inputName = `player_chart_name_${teamCount + 1}`;
+
+    // Create a label element for the new player box
+    const label = document.createElement("label");
+    label.setAttribute("for", inputName);
+    label.textContent = `Player ${teamCount + 1}: `;
+
+    // Create an input element for the new player box
+    const input = document.createElement("input");
+    input.setAttribute("type", "text");
+    input.setAttribute("id", inputName);
+    input.setAttribute("name", inputName);
+    input.classList.add("textbox-style");
+
+    // Create a new div row to hold the label and input elements
+    const div = document.createElement("div");
+    div.appendChild(label);
+    div.appendChild(input);
+
+    // Add the new div row to the form container
+    formContainer.appendChild(div);
+
+    // Increment the team count
+    teamCount++; 
+  });
+
+  // Set up a click listener on table headers
+  $(document).ready(function() {
+    
+    $('table th').click(function() {
+
+      // Get the table element
+      const table = $(this).parents('table').eq(0); 
+
+      // Get the rows of the table and sort them based on the clicked header
+      const rows = table.find('tr:gt(0)').toArray().sort(comparer($(this).index())); 
+
+      // Set the sorting order to descending
+      this.asc = false;
+
+      // Reverse the sorted array of rows
+      rows.reverse(); 
+
+      // Append the sorted rows to the table
+      for (let i = 0; i < rows.length; i++) {
+        table.append(rows[i]);
+      }
+    });
+  });
+
+  // Returns a comparison function based on the index of the column to sort by
+  function comparer(index) {
+    return function(a, b) {
+
+      // Get the values of the cells in the column to sort by
+      const valA = getCellValue(a, index);
+      const valB = getCellValue(b, index);
+
+      // Compare the values and return the comparison result
+      return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.toString().localeCompare(valB);
+    };
+  }
+
+  // Returns the value of a cell in a given row and column index
+  function getCellValue(row, index) {
+    
+    // Get the cell element and return its text content
+    return $(row).children('td').eq(index).text();
+  }
+
+    
+</script>
+
+<style>
+    .modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
+
+</main>
+</body>
+</html>
+{% endblock %}

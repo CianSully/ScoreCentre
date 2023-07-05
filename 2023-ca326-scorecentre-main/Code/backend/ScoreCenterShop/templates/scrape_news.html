@@ -1,0 +1,205 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+      <body style="background-color: rgb(93, 92, 92)">
+     
+      <div class="grid-container1">
+        <!-- Scrapping news for every divison from the scrape_news function. Setting the abreviation to each team name and logo -->
+     
+        <div class="division">
+          <h2>Atlantic</h2>
+          <ul class="team-list">
+            <li><a href="#" onclick="scrape_news('bos')">Boston Celtics <img src="https://loodibee.com/wp-content/uploads/nba-boston-celtics-logo.png" alt="Boston Celtics Logo" width="75" height="75"></a></li>
+            <li><a href="#" onclick="scrape_news('bkn')">Brooklyn Nets <img src="https://loodibee.com/wp-content/uploads/nba-brooklyn-nets-logo.png" alt="Brooklyn Nets Logo" width="75" height="75"></a></li>
+            <li><a href="#" onclick="scrape_news('nyk')">New York Knicks <img src="https://loodibee.com/wp-content/uploads/nba-new-york-knicks-logo.png" alt="New York Knicks Logo" width="75" height="75"></a></li>
+            <li><a href="#" onclick="scrape_news('phi')">Philadelphia 76ers <img src="https://loodibee.com/wp-content/uploads/nba-philadelphia-76ers-logo.png" alt="Philadelphia 76ers Logo" width="75" height="75"></a></li>
+            <li><a href="#" onclick="scrape_news('tor')">Toronto Raptors <img src="https://loodibee.com/wp-content/uploads/nba-toronto-raptors-logo.png" alt="Toronto Raptors Logo" width="75" height="75"></a></li>
+          </ul>
+        </div>
+        
+        <div class="division">
+          <h2>Central Division</h2>
+          <ul class="team-list">
+            <li><a href="#" onclick="scrape_news('chi')">Chicago Bulls <img src="https://loodibee.com/wp-content/uploads/nba-chicago-bulls-logo.png" alt="Chicago Bulls Logo" width="75" height="75"></a></li>
+            <li><a href="#" onclick="scrape_news('cle')">Cleveland Cavaliers <img src="https://loodibee.com/wp-content/uploads/nba-cleveland-cavaliers-logo.png" alt="Cleveland Cavaliers Logo" width="75" height="75"></a></li>
+            <li><a href="#" onclick="scrape_news('det')">Detroit Pistons <img src="https://loodibee.com/wp-content/uploads/nba-detroit-pistons-logo.png" alt="Detroit Pistons Logo" width="75" height="75"></a></li>
+            <li><a href="#" onclick="scrape_news('ind')">Indiana Pacers <img src="https://loodibee.com/wp-content/uploads/nba-indiana-pacers-logo.png" alt="Indiana Pacers Logo" width="75" height="75"></a></li>
+            <li><a href="#" onclick="scrape_news('mil')">Milwaukee Bucks <img src="https://loodibee.com/wp-content/uploads/nba-milwaukee-bucks-logo.png" alt="Milwaukee Bucks Logo" width="75" height="75"></a></li>
+          </ul>
+        </div>
+      
+    
+      <div class="division">
+        <h2>Southwest Division</h2>
+        <ul class="team-list">
+          <li><a href="#" onclick="scrape_news('dal')">Dallas Mavericks <img src="https://loodibee.com/wp-content/uploads/nba-dallas-mavericks-logo.png" alt="Dallas Mavericks Logo" width="75" height="75"></a></li>
+          <li><a href="#" onclick="scrape_news('hou')">Houston Rockets <img src="https://loodibee.com/wp-content/uploads/nba-houston-rockets-logo.png" alt="Houston Rockets Logo" width="75" height="75"></a></li>
+          <li><a href="#" onclick="scrape_news('mem')">Memphis Grizzlies <img src="https://loodibee.com/wp-content/uploads/nba-memphis-grizzlies-logo.png" alt="Memphis Grizzlies Logo" width="75" height="75"></a></li>
+          <li><a href="#" onclick="scrape_news('nor')">New Orleans Pelicans <img src="https://loodibee.com/wp-content/uploads/nba-new-orleans-pelicans-logo.png" alt="New Orleans Pelicans Logo" width="75" height="75"></a></li>
+          <li><a href="#" onclick="scrape_news('sa')">San Antonio Spurs <img src="https://loodibee.com/wp-content/uploads/nba-san-antonio-spurs-logo.png" alt="San Antonio Spurs Logo" width="75" height="75"></a></li>
+        </ul>
+      </div>
+      </div>
+      
+      <div class="grid-container2">
+      <div class="division">
+        <h2>Pacific Division</h2>
+        <ul class="team-list">
+          <li><a href="#" onclick="scrape_news('gsw')">Golden State Warriors <img src="https://loodibee.com/wp-content/uploads/nba-golden-state-warriors-logo.png" alt="Golden State Warriors Logo" width="75" height="75"></a></li>
+          <li><a href="#" onclick="scrape_news('lac')">Los Angeles Clippers <img src="https://loodibee.com/wp-content/uploads/nba-la-clippers-logo.png" alt="Los Angeles Clippers Logo" width="75" height="75"></a></li>
+          <li><a href="#" onclick="scrape_news('lal')">Los Angeles Lakers <img src="https://loodibee.com/wp-content/uploads/nba-los-angeles-lakers-logo.png" alt="Los Angeles Lakers Logo" width="75" height="75"></a></li>
+          <li><a href="#" onclick="scrape_news('pho')">Phoenix Suns <img src="https://loodibee.com/wp-content/uploads/nba-phoenix-suns-logo.png" alt="Phoenix Suns Logo" width="75" height="75"></a></li>
+          <li><a href="#" onclick="scrape_news('sac')">Sacramento Kings <img src="https://loodibee.com/wp-content/uploads/nba-sacramento-kings-logo.png" alt="Sacramento Kings Logo" width="75" height="75"></a></li>
+        </ul>
+      </div>
+
+      <div class="division">
+        <h2>Southeast Division</h2>
+        <ul class="team-list">
+          <li><a href="#" onclick="scrape_news('atl')">Atlanta Hawks <img src="https://loodibee.com/wp-content/uploads/nba-atlanta-hawks-logo.png" alt="Atlanta Hawks Logo" width="75" height="75"></a></li>
+          <li><a href="#" onclick="scrape_news('cha')">Charlotte Hornets <img src="https://loodibee.com/wp-content/uploads/nba-charlotte-hornets-logo.png" alt="Charlotte Hornets Logo" width="75" height="75"></a></li>
+          <li><a href="#" onclick="scrape_news('mia')">Miami Heat <img src="https://loodibee.com/wp-content/uploads/nba-miami-heat-logo.png" alt="Miami Heat Logo" width="75" height="75"></a></li>
+          <li><a href="#" onclick="scrape_news('orl')">Orlando Magic <img src="https://loodibee.com/wp-content/uploads/nba-orlando-magic-logo.png" alt="Orlando Magic Logo" width="75" height="75"></a></li>
+          <li><a href="#" onclick="scrape_news('was')">Washington Wizards <img src="https://loodibee.com/wp-content/uploads/nba-washington-wizards-logo.png" alt="Washington Wizards Logo" width="75" height="75"></a></li>
+        </ul>
+      </div>
+      
+        <div class="division">
+          <h2>Northwest Division</h2>
+          <ul class="team-list">
+            <li><a href="#" onclick="scrape_news('den')">Denver Nuggets <img src="https://loodibee.com/wp-content/uploads/nba-denver-nuggets-logo-2018.png" alt="Denver Nuggets Logo" width="75" height="75"></a></li>
+            <li><a href="#" onclick="scrape_news('min')">Minnesota Timberwolves <img src="https://loodibee.com/wp-content/uploads/nba-minnesota-timberwolves-logo.png" alt="Minnesota Timberwolves Logo" width="75" height="75"></a></li>
+            <li><a href="#" onclick="scrape_news('okc')">Oklahoma City Thunder <img src="https://loodibee.com/wp-content/uploads/nba-oklahoma-city-thunder-logo.png" alt="Oklahoma City Thunder Logo" width="75" height="75"></a></li>
+            <li><a href="#" onclick="scrape_news('por')">Portland Trail Blazers <img src="https://loodibee.com/wp-content/uploads/nba-portland-trail-blazers-logo.png" alt="Portland Trail Blazers Logo" width="75" height="75"></a></li>
+            <li><a href="#" onclick="scrape_news('utah')">Utah Jazz <img src="https://loodibee.com/wp-content/uploads/nba-utah-jazz-logo.png" alt="Utah Jazz Logo" width="75" height="75"></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+      
+<div class="container">
+    <div class="row">
+      <!-- For loop which takes from the article list and shwows news for chosen team -->
+      {% for article in articles_list %}
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ article.headline }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ article.team_heading }}</h6>
+            <a class="a-card" href="https://www.espn.com{{ article.link }}" class="card-link">Read more</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <style>
+    .grid-container1 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+      margin-bottom: 10px;
+      margin-top: 10px;
+    }
+    
+    .grid-container2 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+      margin-bottom: 1px;
+      margin-top: 30px;
+      
+    }
+    .division {
+      background-color: rgb(93, 92, 92);
+      border: 5px;
+      border-color: #333;
+      
+  
+    }
+
+
+    .team-list {
+    list-style: none;
+    padding: 15px, 15px;
+    margin: 0;
+    background-color: rgb(43, 43, 43);
+    }
+
+    .team-list li {
+      display: inline-block;
+      margin: 20px, 20px;
+      padding: 12px;
+      font-size: 1.2em;
+      
+
+    }
+
+    a {
+     color: white;
+     text-decoration: none;
+    }
+
+    a:hover {
+     color: rgb(94, 140, 245);
+    }
+
+    .a-card {
+      color: #333;
+      text-decoration: none;
+    
+    }
+
+    .a-card:hover {
+      color: rgb(94, 140, 245);
+    }
+  </style>
+
+<script>
+
+// This function scrapes news for a given team
+function scrape_news(team) {
+
+  // Get the hide_names parameter from the url
+  var hide_names = new URLSearchParams(window.location.search).get('hide_names');
+
+  // If hide_names is true, open a new window, else redirect to the scrape_news url
+  var url = "{% url 'scrape_news' %}?team=" + team + "&hide_names=true";
+  if (hide_names === 'true') {
+
+    // If hide_names is true, open a new window with the scrape_news url
+    var newWindow = window.open(url, '_blank');
+  } else {
+
+    // If hide_names is false, redirect to the scrape_news url
+    window.location.href = url;
+  }
+}
+
+// When the window is loaded
+window.addEventListener('load', function() {
+
+  // Get the hide_names parameter from the url
+  var hide_names = new URLSearchParams(window.location.search).get('hide_names');
+  if (hide_names === 'true') {
+
+    // If hide_names is true, hide the team names by setting their grid containers to none
+    var gridContainer1 = document.querySelector('.grid-container1');
+    gridContainer1.style.display = 'none';
+    var gridContainer2 = document.querySelector('.grid-container2');
+    gridContainer2.style.display = 'none';
+  }
+});
+
+
+
+
+
+</script>
+</body>
+
+{% endblock %}

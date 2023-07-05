@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+<meta charset="UTF-8">
+<!-- <title>Results</title> -->
+
+{% block content %}
+<main>        <h1> NBA Results </h1></main>
+<table class="table table-success table-striped" style="max-width: 1400px;">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Time</th>
+        <th style="width: 400px;">Home vs Away</th>
+        <th>Score</th>
+      
+        <th>Status</th>
+        <th>View</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- For loop to go through all of the results with an if statement that makes sure the match is finished -->
+      {% for match in response reversed %}
+      {% if match.status.short == "FT" %}
+        <tr>
+          <td>{{ match.date }}</td>
+          <td>{{ match.time }} </td>
+          <td class="team-cell"><img class="img" src="{{ match.teams.home.logo }}" alt="Image" width="35" height="35">
+          {{ match.teams.home.name }} (H)</td>
+		      <td class="team-cell"><img class="img" src="{{ match.teams.away.logo }}" alt="Image" width="35" height="35">
+          {{ match.teams.away.name }} (A)</td>
+          <td>
+            {{ match.scores.home.total }}<br>
+            <div style="height: 1px;"></div>{{ match.scores.away.total }}
+          </td>
+          <td>{{ match.status.short }}</td>
+
+          <!-- Used to view an individual match  -->
+          <td><a href='/individual_match/{{match.id}}/'>View</a></td>
+
+
+        </tr>
+        </tr>
+      {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <style>
+    .team-cell {
+      display: flex;
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+    }
+    .img {
+      margin-right: 10px;
+    }
+    td {
+  padding: 5px;
+  vertical-align: middle;
+  }
+
+  a{
+    color: #333;
+
+  }
+
+  a:hover{
+    color: rgb(94, 140, 245) ;
+    text-decoration: none;
+  
+  }
+  </style>
+
+{% endblock %}
+
+

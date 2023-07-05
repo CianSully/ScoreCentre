@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<body style="background-color:rgb(93,92,92)">
+<main>
+    <h1>NBA Fixtures</h1>
+     
+    <!-- Show error message if there is one -->
+    {% if error_message %}
+    <script>
+        alert("{{ error_message }}")
+    </script>
+    {% endif %}
+
+    <!-- Form for a user to choose dates -->
+    <form class="form-fixtures" action="{% url 'match_fixtures' %}" method="POST">
+        {% csrf_token %}
+
+        <!-- User puts in start date and end date -->
+        <label for="start_date">Start Date:</label>
+        <input type="date" id="start_date" name="start_date">
+        <label for="end_date">End Date:</label>
+        <input type="date" id="end_date" name="end_date">
+        <button class="my-button2" type="submit">Filter</button>
+    </form>
+
+    <!-- Table to display fixtures for set dates-->
+    <table class="table table-success table-striped" style="width:100%">
+        <thead>
+
+          <!-- Using the start date and end date variables, display the dates the user has chosen -->
+          {% if start_date %}
+          
+          <p1> Showing games for {{ start_date }} to {{ end_date }}</p1>
+        
+          {% endif %}
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Teams</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <!-- Gets the fixtures data and puts it into the table-->
+            {% for match in response %}
+            <tr>
+                <td>{{ match.date }}</td>
+                <td>{{ match.status }}</td>
+                <td class="team-cell"><img class="img" src="{{ match.home_team_logo }}" alt="Image" width="35" height="35">
+                {{ match.home_team.name }} (H)</td>
+		        <td class="team-cell"><img class="img" src="{{ match.away_team_logo }}" alt="Image" width="35" height="35">
+                {{ match.visitor_team.name }} (A)</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+</body>
+<style>
+    .team-cell {
+      display: flex;
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+      justify-content: center;
+    }
+    .img {
+      margin-right: 10px;
+    }
+    td {
+  padding: 5px;
+  vertical-align: middle;
+  }
+
+  p1 {
+    font-size: 20px;
+    
+    color:white;
+  }
+  </style>
+
+{% endblock %}

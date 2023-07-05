@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+  <body>
+
+	<!-- Needed for the facebook logo -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-+U6yHbV0c2AVnvZlNNmBwzKvGpHq3JxUg9onUZXm6QQ04s/P8u06WjKpOmLKwOUYbsXXvVL8fGH/9YY9rFe2Ig==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    {% for match in response %}
+       
+	  <!-- Setting up the link for the game recaps from NBA.com -->
+      {% with link="https://www.nba.com/watch/video/game-recap-" %}
+	  <!-- Extracting the  last name of the home and away team names and adding the score, as this is needed to link to the game recap -->
+      {% with full_link=link|add:extract_home_last_name|add:"-"|add:home_score_str|add:"-"|add:extract_away_last_name|add:"-"|add:away_score_str|lower %}
+	  {% with full_link2=full_link|add:"-2?plsrc=nba&collection=game-recaps" %}
+      
+	 
+       
+      <div id="fb-root"></div>
+	  
+	  <!-- Setting up the link for the facebook share button -->
+      <script async defer crossorigin="anonymous"
+      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v16.0&appId=723744261568640&autoLogAppEvents=1" nonce="7nyA9pNo"></script>
+        
+
+	    <!-- Putting in the logos and team names -->
+		<div class="row">
+			<div class="column">
+				<img src="{{ match.teams.home.logo }}" alt="{{ match.teams.home.name }}" class="team-logo1">
+				
+				
+				<img src="{{ match.teams.away.logo }}" alt="{{ match.teams.away.name }}" class="team-logo2">
+			</div>
+		
+			
+				<h1 class="individual-match-h1">{{ match.teams.home.name }} <br>
+				vs <br>
+				{{ match.teams.away.name }}</h1>
+			
+		
+     
+    
+	<main>
+		<!-- Putting in the scores for each quarter -->
+		<div class="score-table-container">
+		<h2 style="margin-left: 100px; margin-top: 20px; margin-right: auto; width: 100%"> Points </h2>
+		<table class="table table-success table-striped first-table" style="margin-left: 100px;">
+			<thead>
+			  <tr>
+				<th>Teams</th>
+				<th>Q1</th>
+				<th>Q2</th>
+				<th>Q3</th>
+				<th>Q4</th>
+				<th>Total</th>
+				
+			  </tr>
+			</thead>
+			<tbody>
+	
+				<!-- Getting the data from the API and displaying it in the table -->
+				<tr>
+					<td>{{ match.teams.home.name }}</td>
+					<td>{{ match.scores.home.quarter_1 }}</td>
+					<td>{{ match.scores.home.quarter_2 }}</td>
+					<td>{{ match.scores.home.quarter_3 }}</td>
+					<td>{{ match.scores.home.quarter_4 }}</td>
+					<td>{{ match.scores.home.total }}</td>
+				  </tr>
+				  </tr>
+				</tbody>
+				<tr>
+					<td>{{ match.teams.away.name }}</td>
+					<td>{{ match.scores.away.quarter_1 }}</td>
+					<td>{{ match.scores.away.quarter_2 }}</td>
+					<td>{{ match.scores.away.quarter_3 }}</td>
+					<td>{{ match.scores.away.quarter_4 }}</td>
+					<td>{{ match.scores.away.total }}</td>
+				  </tr>
+				  </tr>
+				</tbody>
+		
+		</table>
+		 <h2 style="margin-left: 100px; margin-top: 20px; margin-right: auto; width: 100%"> Head to head </h2> 
+
+		 <!-- Table to show head to head results -->
+		<table class="table table-success table-striped second-table ">
+			<thead>
+			  <tr>
+				<th>Date</th>
+				<th>Teams</th>
+				<th>Home</th>
+				<th>Away</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  
+			  <!-- Getting the data from the API and displaying it in the table -->
+			  {% for h2h in h2h_response reversed %}
+			  {% if h2h.status.short == 'FT' %}
+			  <!-- Just show the last 5 games -->
+			  {% if forloop.counter <= 5 %}
+			  
+				<tr>
+					<td>{{ h2h.date }}</td>
+					<td>{{ h2h.teams.home.name }}<br> vs <br>{{ h2h.teams.away.name }}</td>
+					<td>{{ h2h.scores.home.total }}</td>
+					<td>{{ h2h.scores.away.total }}</td>
+				</tr>
+
+
+			{% endif %}
+			{% endif %}
+			{% endfor %}
+			</tbody>
+		</table>
+		</div>
+        
+		<!-- Shows the match recap from NBA.com -->
+		<div class="video-container" style="top:100px">
+			<!-- This is the facebook share button inside the video container div -->
+			<p class="fb-share-button" data-href="{{ full_link }}" data-layout="button" data-size="large" style="position: absolute; top:15px; right: 0px; margin-bottom: 1em;"><a target="_blank"
+				href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse"
+				class="fb-xfbml-parse-ignore">Share</a></p>
+			
+			 <!-- This is the link to the game recap from NBA.com -->
+			<iframe  width="450" height="650" src="{{ full_link }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>
+		  </div>
+			
+        {% endwith %}
+        {% endwith %}
+		{% endwith %}
+      {% endfor %}
+    
+
+
+	
+    </main>
+    
+  </body>
+
+{% endblock %}
